@@ -43,7 +43,7 @@ module.exports = class CartItem {
     }
 
     set price(value) {
-        this.#_price = value;
+        this.#_price = this.#validatePrice(value);
     }
 
     get total() {
@@ -75,7 +75,10 @@ module.exports = class CartItem {
     }
 
     #validatePrice(price) {
-        //TODO Implement this method
+        if (typeof(price) != 'number' || price < 10) {
+            throw new InvalidPriceException();
+        }
+        return price;
     }
     //endregion private methods
 }
