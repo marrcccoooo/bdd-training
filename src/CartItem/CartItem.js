@@ -53,7 +53,7 @@ module.exports = class CartItem {
 
     //region private methods
     set #articleId(value) {
-        this.#_articleId = value;
+        this.#_articleId = this.#validateArticleId(value);
     }
 
     set #name(value) {
@@ -61,7 +61,10 @@ module.exports = class CartItem {
     }
 
     #validateArticleId(articleId) {
-        //TODO Implement this method
+        if (!Number.isInteger(articleId) || articleId <= 0) {
+            throw new InvalidArticleIdException();
+        }
+        return articleId;
     }
 
     #validateQuantity(quantity) {
